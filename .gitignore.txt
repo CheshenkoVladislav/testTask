@@ -1,0 +1,4 @@
+IdeaProjects
+JavaRushTasks
+mysql-connector-java-5.1.46
+testtask2
