@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Finder {
-
+    //fields
     private String fileNameToSearch;
     private List<String> filePath = new ArrayList();
     private List<String>names = new ArrayList<>();
-
+    //getters
     public List<String> getNames() {return names;}
     public List<String> getFilePath() {return filePath;}
     public String getFileNameToSearch() {return fileNameToSearch;}

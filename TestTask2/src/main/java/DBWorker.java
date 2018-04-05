@@ -1,10 +1,11 @@
-package com.testtask;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBWorker {
+    public Connection getConnection() {return connection;}
+    //fields
+    Connection connection;
     private static String URL = "jdbc:mysql://localhost:3306/students"
             + "?verifyServerCertificate=false"
             + "&useSSL=false"
@@ -14,17 +15,9 @@ public class DBWorker {
             + "&serverTimezone=UTC";
     private static String LOGIN = "root";
     private static String PASSWORD = "root";
-
-    Connection connection;
-
+    //constructor
     public DBWorker(){
-        try {
-            connection = DriverManager.getConnection(URL,LOGIN,PASSWORD);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public Connection getConnection() {
-        return connection;
-    }
+        try { connection = DriverManager.getConnection(URL,LOGIN,PASSWORD); }
+        catch (SQLException e) {e.printStackTrace();} }
 }
+

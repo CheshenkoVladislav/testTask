@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class DataFiles {
+    //fields
     private static String OUTPUT_FILE_NAME = "D:\\result.txt";
     private static String DIRECTORY = "D:\\testQuestPack";
 
@@ -30,12 +31,9 @@ public class DataFiles {
         Collections.sort(fileFinder.getFilePath());
         Collections.sort(fileFinder.getNames());
 
-
         for (String a : fileFinder.getFilePath()) {
-            fileReader.readWrite(new File(a),output);
-        }
-        System.out.println(fileFinder.getNames());
-    }
+            fileReader.readWrite(new File(a),output); }
+        System.out.println(fileFinder.getNames()); }
 
 //    public void copyFiles(File source, File dest){
 //    }

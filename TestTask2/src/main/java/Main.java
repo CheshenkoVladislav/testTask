@@ -1,5 +1,3 @@
-package com.testtask;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,23 +6,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-    private static String showQuery = "select * from students_table";
-    private static String addQuery =  "insert into students_table(name,surname,patronymic,date_of_birth,gr) values (?,?,?,?,?)";
+    //fields
+    private static String SHOW_QUERY = "select * from students_table";
+    private static String ADD_QUERY =  "insert into students_table(name,surname,patronymic,date_of_birth,gr) values (?,?,?,?,?)";
     private static String DELETE_QUERY = "delete from students_table where id=?";
-    private static String datePattern = "yyyy.MM.dd";
     private static HashMap<Integer,Student> students = new HashMap<>();
+
     public static void main(String[] args) throws IOException {
         System.out.println("Commands:\nADD = add student\nDELETE = Delete student by id\nSHOW = show all students");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String answer = "";
+        //The program will end when enter EXIT
         while (!answer.equals("EXIT")) {
             System.out.println("!!!!!!!!!ENTER COMAND!!!!!!!!!! ");
             answer = reader.readLine();
+            //process SHOW
             if (answer.equals("SHOW")) {
                 try {
                     DBWorker worker = new DBWorker();
                     Statement statement = worker.getConnection().createStatement();
-                    ResultSet result = statement.executeQuery(showQuery);
+                    ResultSet result = statement.executeQuery(SHOW_QUERY);
 
                     while (result.next()) {
                         int id = result.getInt(1);
@@ -40,12 +41,9 @@ public class Main {
                                 + "Patronymic: " + value.getPatronymic() + "; "
                                 + "Date of birth: " + value.getDate() + "; "
                                 + "Group: " + value.getGroup());
-                    }
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            } else if (answer.equals("ADD")) {
+                    } } catch (SQLException e) {e.printStackTrace();}}
+            //process ADD
+            else if (answer.equals("ADD")) {
                 try {
                     System.out.print("Enter student name: ");
                     String name = reader.readLine();
@@ -59,17 +57,16 @@ public class Main {
                     String group = reader.readLine();
 
                     DBWorker worker = new DBWorker();
-                    PreparedStatement statement = worker.getConnection().prepareStatement(addQuery);
+                    PreparedStatement statement = worker.getConnection().prepareStatement(ADD_QUERY);
                     statement.setString(1, name);
                     statement.setString(2, surname);
                     statement.setString(3, patronymic);
                     statement.setString(4, dat);
                     statement.setString(5, group);
                     statement.execute();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            } else if (answer.equals("DELETE")) {
+                } catch (SQLException e) {e.printStackTrace();} }
+            //process DELETE
+            else if (answer.equals("DELETE")) {
                 System.out.println("Enter student id");
                 int id = Integer.parseInt(reader.readLine());
                 try {
@@ -77,12 +74,7 @@ public class Main {
                     PreparedStatement statement = worker.getConnection().prepareStatement(DELETE_QUERY);
                     statement.setInt(1, id);
                     statement.execute();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }
+                } catch (SQLException e) {e.printStackTrace();} } }
         reader.close();
     }
 }
