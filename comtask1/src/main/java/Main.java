@@ -10,13 +10,13 @@ public class Main {
     private static String SHOW_QUERY = "select * from students_table";
     private static String ADD_QUERY =  "insert into students_table(name,surname,patronymic,date_of_birth,gr) values (?,?,?,?,?)";
     private static String DELETE_QUERY = "delete from students_table where id=?";
+    private static String datePattern = "yyyy.MM.dd";
     private static HashMap<Integer,Student> students = new HashMap<>();
-
     public static void main(String[] args) throws IOException {
         System.out.println("Commands:\nADD = add student\nDELETE = Delete student by id\nSHOW = show all students");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String answer = "";
-        //The program will end when enter EXIT
+        //he program will end when enter EXIT
         while (!answer.equals("EXIT")) {
             System.out.println("!!!!!!!!!ENTER COMAND!!!!!!!!!! ");
             answer = reader.readLine();
@@ -26,12 +26,10 @@ public class Main {
                     DBWorker worker = new DBWorker();
                     Statement statement = worker.getConnection().createStatement();
                     ResultSet result = statement.executeQuery(SHOW_QUERY);
-
                     while (result.next()) {
                         int id = result.getInt(1);
                         students.put(id, new Student(result.getInt(1), result.getString(2),
-                                result.getString(3), result.getString(4), result.getString(5), result.getString(6)));
-                    }
+                                result.getString(3), result.getString(4), result.getString(5), result.getString(6))); }
                     for (Map.Entry<Integer, Student> entry : students.entrySet()) {
                         int key = entry.getKey();
                         Student value = entry.getValue();
@@ -40,8 +38,8 @@ public class Main {
                                 + "Surname: " + value.getSurname() + "; "
                                 + "Patronymic: " + value.getPatronymic() + "; "
                                 + "Date of birth: " + value.getDate() + "; "
-                                + "Group: " + value.getGroup());
-                    } } catch (SQLException e) {e.printStackTrace();}}
+                                + "Group: " + value.getGroup()); }
+                } catch (SQLException e) {e.printStackTrace();}}
             //process ADD
             else if (answer.equals("ADD")) {
                 try {
@@ -64,7 +62,7 @@ public class Main {
                     statement.setString(4, dat);
                     statement.setString(5, group);
                     statement.execute();
-                } catch (SQLException e) {e.printStackTrace();} }
+                } catch (SQLException e) {e.printStackTrace();}}
             //process DELETE
             else if (answer.equals("DELETE")) {
                 System.out.println("Enter student id");

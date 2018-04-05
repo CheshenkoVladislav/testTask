@@ -13,11 +13,11 @@ public class DBWorker {
             + "&useLegacyDatetimeCode=false"
             + "&amp"
             + "&serverTimezone=UTC";
+    //fields
     private static String LOGIN = "root";
     private static String PASSWORD = "root";
-    //constructor
     public DBWorker(){
-        try { connection = DriverManager.getConnection(URL,LOGIN,PASSWORD); }
-        catch (SQLException e) {e.printStackTrace();} }
+        try {connection = DriverManager.getConnection(URL,LOGIN,PASSWORD);}
+        catch (SQLException e) {e.printStackTrace();}
+    }
 }
-
